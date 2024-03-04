@@ -1,0 +1,105 @@
+{% include "header.html" %}
+
+  <!-- Start your project here-->
+  <section>
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-12 col-xl-10">
+
+          <div class="card">
+            <div class="card-header p-3">
+              <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Task List</h5>
+            </div>
+            <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative;">
+
+              <table class="table mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col">Task</th>
+                    <th scope="col">Due Date</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Update</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for task in all_tasks %}
+                  <tr class="fw-normal">
+                    <th>
+                      {% if task.type == "Python" %}
+                        <img src="{{ url_for('static', filename='assets/img/python-icon.png') }}" class="shadow-1-strong rounded-circle" alt="avatar 1"
+                          style="width: 35px; height: auto;">
+                      {% elif task.type == "Javascript" %}
+                       <img src="{{ url_for('static', filename='assets/img/js-icon.png') }}" class="shadow-1-strong rounded-circle" alt="avatar 1"
+                          style="width: 35px; height: auto;">
+                      {% elif task.type == "Work" %}
+                        <img src="{{ url_for('static', filename='assets/img/work-icon.png') }}" class="shadow-1-strong rounded-circle" alt="avatar 1"
+                          style="width: 35px; height: auto;">
+                      {% elif task.type == "Daily" %}
+                        <img src="{{ url_for('static', filename='assets/img/task-icon.png') }}" class="shadow-1-strong rounded-circle" alt="avatar 1"
+                          style="width: 35px; height: auto;">
+                      {% endif %}
+                      <span class="ms-2">{{ task.task }}</span>
+                    </th>
+                    <td class="align-middle">
+                      <span >{{ task.due_date.strftime("%d %B %Y") }}</span >
+                    </td>
+                    <td class="align-middle">
+                      {% if task.priority == "High" %}
+                        <h6 class="mb-0"><span class="badge bg-danger">{{ task.priority }}</span></h6>
+                      {% elif task.priority == "Medium" %}
+                        <h6 class="mb-0"><span class="badge bg-info">{{ task.priority }}</span></h6>
+                      {% elif task.priority == "Low" %}
+                        <h6 class="mb-0"><span class="badge bg-secondary">{{ task.priority }}</span></h6>
+                      {% endif %}
+                    </td>
+                    <td class="align-middle">
+                      {% if task.status == "In Progress" %}
+                        <h6 class="mb-0"><span class="badge bg-warning">{{ task.status }}</span></h6>
+                      {% elif task.status == "Completed" %}
+                        <h6 class="mb-0"><span class="badge bg-success">{{ task.status }}</span></h6>
+                      {% elif task.status == "Not Started" %}
+                        <h6 class="mb-0"><span class="badge bg-dark">{{ task.status }}</span></h6>
+                      {% endif %}
+                    </td>
+                    <td class="align-middle">
+                        <form action="{{url_for('change_status', task_id=task.id) }}" method="POST">
+                          <input type="hidden" name="task_id" value="{{ task.id }}">
+                            <button type="submit" class="btn btn-link p-0" name="new_status" value="Completed" data-mdb-toggle="tooltip" title="Done">
+                              <i class="fas fa-check text-success me-3"></i>
+                            </button>
+
+                            <button type="submit" class="btn btn-link p-0" name="new_status" value="In Progress" data-mdb-toggle="tooltip" title="In Progress">
+                              <i class="fas fa-spinner text-warning me-3"></i>
+                            </button>
+
+                            <button type="submit" class="btn btn-link p-0" name="new_status" value="Not Started" data-mdb-toggle="tooltip" title="Not Started">
+                              <i class="fas fa-clock text-dark me-3"></i>
+                            </button>
+                      </form>
+                    </td>
+                    <td class="align-middle">
+                      <a href="{{ url_for('edit_task', task_id=task.id)}}" data-mdb-toggle="tooltip" title="Edit"><i class="fas fa-edit text-primary me-3"></i></a>
+                      <a href="{{ url_for('delete_task', task_id=task.id)}}" data-mdb-toggle="tooltip" title="Remove"><i class="fas fa-trash-alt text-danger me-3"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+                {% endfor %}
+              </table>
+
+            </div>
+            <div class="card-footer text-end p-3">
+              <a href="{{ url_for('add_task') }}">
+                <button class="btn btn-primary">Add Task</button>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End your project here-->
+
+{% include "footer.html" %}

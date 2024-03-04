@@ -1,0 +1,27 @@
+{% from "bootstrap5/form.html" import render_form %}
+{% include "header.html" %}
+
+<!-- Start your project here-->
+  <section>
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-12 col-xl-10">
+          <div class="card">
+            <div class="card-header p-3">
+              {% if is_edit: %}
+              <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Edit Task</h5>
+              {% else: %}
+              <h5 class="mb-0"><i class="fas fa-tasks me-2"></i>Add Task</h5>
+              {% endif %}
+            </div>
+            <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative;">
+                  {{ render_form(form, novalidate=True, button_map={"submit": "primary float-end mt-3"}) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End your project here-->
+
+{% include "footer.html" %}

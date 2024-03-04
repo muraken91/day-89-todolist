@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>To-Do-List</title>
+  {% block styles %}
+  {{ bootstrap.load_css() }}
+  <!-- MDB icon -->
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/icon.png') }}" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  {% endblock %}
+</head>
+
+<body style="background-color: #eee;">
+<header class="p-3 text-bg-dark mb-3">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <img src="{{  url_for('static', filename='assets/img/logo.png')  }}" class="bi me-2" width="40" height="32" role="img" alt="Logo">
+          <span class="fs-4">Task Manager</span>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        </ul>
+
+
+        <div class="text-end">
+          <a href="{{ url_for('home') }}">
+            <button type="button" class="btn btn-outline-light me-2">Home</button>
+          </a>
+          <a href="{{ url_for('add_task') }}">
+            <button type="button" class="btn btn-white">Add Task</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
